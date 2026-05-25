@@ -9,7 +9,7 @@ RESULTS_DIR = ENV["RESULTS_DIR"]? || "./linpeas_results"
 # Create results directory if it doesn't exist
 unless Dir.exists?(RESULTS_DIR)
   Dir.mkdir_p(RESULTS_DIR)
-  puts "📁 Created results directory: #{RESULTS_DIR}"
+  puts "Created results directory: #{RESULTS_DIR}"
 end
 
 # Request handler
@@ -40,9 +40,9 @@ server = HTTP::Server.new do |context|
           # Save results to file
           File.write(filepath, results)
           
-          puts "✅ Results received from #{hostname}"
-          puts "📄 Saved to: #{filepath}"
-          puts "📊 Size: #{results.size} bytes"
+          puts "Results received from #{hostname}"
+          puts "Saved to: #{filepath}"
+          puts "Size: #{results.size} bytes"
           
           response.status_code = 200
           response.content_type = "application/json"
@@ -58,7 +58,7 @@ server = HTTP::Server.new do |context|
           response.print({error: "No results provided"}.to_json)
         end
       rescue ex
-        puts "❌ Error processing upload: #{ex.message}"
+        puts "Error processing upload: #{ex.message}"
         response.status_code = 500
         response.content_type = "application/json"
         response.print({error: "Internal server error"}.to_json)
@@ -131,11 +131,11 @@ end
 # Bind server to port
 address = server.bind_tcp("0.0.0.0", PORT)
 
-puts "🚀 LinPEAS Results Server listening on port #{PORT}"
-puts "📁 Results directory: #{RESULTS_DIR}"
-puts "📤 Upload endpoint: http://localhost:#{PORT}/upload"
-puts "📋 View results: http://localhost:#{PORT}/results"
-puts "❤️  Health check: http://localhost:#{PORT}/health"
+puts "LinPEAS Results Server listening on port #{PORT}"
+puts "Results directory: #{RESULTS_DIR}"
+puts "Upload endpoint: http://localhost:#{PORT}/upload"
+puts "View results: http://localhost:#{PORT}/results"
+puts "Health check: http://localhost:#{PORT}/health"
 puts ""
 puts "Press Ctrl+C to stop the server"
 
