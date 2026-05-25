@@ -1,0 +1,3 @@
+server/linpeas_results/
+client/*.sh
+client/*.txt
